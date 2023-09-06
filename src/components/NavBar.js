@@ -6,9 +6,6 @@ import logo from "../assets/img/logo.svg";
 import navIcon1 from "../assets/img/nav-icon1.svg";
 import navIcon2 from "../assets/img/nav-icon2.svg";
 import navIcon3 from "../assets/img/nav-icon3.svg";
-import logo2 from "../assets/img/yeni-logo.png";
-
-
 export const NavBar = () => {
   const [activeLink, setActiveLink] = useState("home");
   const [scrolled, setScrolled] = useState(false);
@@ -48,7 +45,7 @@ export const NavBar = () => {
               }
               onClick={() => onUpdateActiveLink("home")}
             >
-              Home
+              Ana Sayfa
             </Nav.Link>
 
             <Nav.Link
@@ -58,7 +55,7 @@ export const NavBar = () => {
               }
               onClick={() => onUpdateActiveLink("skills")}
             >
-              Skills
+              Yetenekler
             </Nav.Link>
 
             <Nav.Link
@@ -68,26 +65,34 @@ export const NavBar = () => {
               }
               onClick={() => onUpdateActiveLink("project")}
             >
-              Project
+              Projeler
+            </Nav.Link>
+            <Nav.Link
+              href="#contact"
+              className={
+                activeLink === "contact" ? "active navbar-link" : "navbar-link"
+              }
+              onClick={() => onUpdateActiveLink("contact")}
+            >
+              İletişim
             </Nav.Link>
           </Nav>
           <span className="navbar-text">
-            <div className="social-icon">
+            <div className="social-icon d-flex">
               <a href="https://www.linkedin.com/in/kblyclkn" target="-blank">
                 <img src={navIcon1} alt="" />
               </a>
-              <a href="#">
-                <img src={navIcon2} alt="" />
-              </a>
-              <a href="#">
+
+              <a href="https://github.com/kblyclkn" target="-blank">
                 <img src={navIcon3} alt="" />
               </a>
             </div>
-           
-              <button className="vvd">
-                <span>Let’s Connect</span>
-              </button>
-            
+
+            <button className="vvd">
+              <a href="https://www.linkedin.com/in/kblyclkn" target="-blank">
+                Bağlantı Kur
+              </a>
+            </button>
           </span>
         </Navbar.Collapse>
       </Container>

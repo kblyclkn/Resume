@@ -1,119 +1,57 @@
-import React from "react";
-import { useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import contactImage from "../assets/img/contact-img.svg";
-function Contact() {
-  const fromInitialDetails = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    message: "",
-  };
-  const [formDetails, setFormDetails] = useState(fromInitialDetails);
-  const [butonText, setButtonText] = useState("Send");
-  const [status, setStatus] = useState({});
+import React, { useRef } from "react";
+import emailjs from "@emailjs/browser";
+import { Button, Container, Form } from "react-bootstrap";
+const Contact = () => {
+  const form = useRef();
 
-  const onFormUpdate = (category, value) => {
-    setFormDetails({
-      ...formDetails,
-      [category]: value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
+  const sendEmail = (e) => {
     e.preventDefault();
-    setButtonText("Gönderiliyor...");
-    let response = await fetch("http://localhost:5000/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "Application/json;charset=utf-8",
-      },
-      body: JSON.stringify(formDetails),
-    });
-    setButtonText("Gönderildi");
-    let result = response.json();
-    setFormDetails(formInitialDetails);
-    if (result.code === 200) {
-      setStatus({ success: true, message: "Mesaj gönderimi başarılı." });
-    } else {
-      setStatus({success: false, message: "Bir hata oluştu, Lütfen tekrar deneyin."})
-    }
+
+    emailjs
+      .sendForm(
+        "service_ygfyccs",
+        "template_5lefv1e",
+        form.current,
+        "VoW2anReWSk92An6C"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          console.log("mesajınız gönderildi");
+          e.target.reset();
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
   };
 
   return (
-    <section className="contact" id="connect">
+    <section id="contact">
       <Container>
-        <Row className="align-items-center">
-          <Col md={6}>
-            <img src={contactImage} alt="Contact Us" />
-          </Col>
-          <Col md={6}>
-            <h2>Get In Touch</h2>
-            <form onSubmit={handleSubmit}>
-              <Row>
-                <Col sm={6} className="px-1">
-                  <input
-                    type="text"
-                    value={formDetails.firstName}
-                    placeholder="First Name"
-                    onChange={(e) => onFormUpdate("firstName", e.target.value)}
-                  />
-                </Col>
-                <Col sm={6} className="px-1">
-                  <input
-                    type="text"
-                    value={formDetails.lastName}
-                    placeholder="Last Name"
-                    onChange={(e) => onFormUpdate("lastName", e.target.value)}
-                  />
-                </Col>
-                <Col sm={6} className="px-1">
-                  <input
-                    type="email"
-                    value={formDetails.email}
-                    placeholder="Email Adress"
-                    onChange={(e) => onFormUpdate("email", e.target.value)}
-                  />
-                </Col>
-                <Col sm={6} className="px-1">
-                  <input
-                    type="tel"
-                    value={formDetails.phone}
-                    placeholder="Phone Number"
-                    onChange={(e) => onFormUpdate("phone", e.target.value)}
-                  />
-                </Col>
+        <Form ref={form} onSubmit={sendEmail}>
+          <Form.Group className="mb-3 d-flex gap-5">
+            <Form.Control placeholder="İsim" type="text" name="user_name" />
+            <Form.Control placeholder="E-mail" type="email" name="user_email" />
+          </Form.Group>
 
-                <Col>
-                  <textarea
-                    row="6"
-                    value={formDetails.message}
-                    placeholder="Message"
-                    onChange={(e) => onFormUpdate("message", e.target.value)}
-                  ></textarea>
-                  <button type="submti">
-                    <span>{buttonText}</span>
-                  </button>
-                </Col>
-                {status.message && (
-                  <Col>
-                    <p
-                      className={
-                        status.success === false ? "danger" : "success"
-                      }
-                    >
-                      {status.message}
-                    </p>
-                  </Col>
-                )}
-              </Row>
-            </form>
-          </Col>
-        </Row>
+          <Form.Group className="mb-3">
+            <Form.Control
+              placeholder="Lütfen mesajınızı giriniz."
+              as="textarea"
+              name="message"
+            />
+          </Form.Group>
+          <Button
+            className="btn-hover align-items-center justify-content-center color-1  mb-3"
+            type="submit"
+            value="Send"
+          >
+            Gönder
+          </Button>
+        </Form>
       </Container>
     </section>
   );
-}
-
+};
 export default Contact;

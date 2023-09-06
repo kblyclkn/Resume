@@ -69,14 +69,19 @@ function Banner() {
                     {"Merhaba Ben Kubilay"} <span className="wrap">{text}</span>
                   </h1>
                   <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Sit, autem? Porro qui in minus repudiandae. Voluptas animi
-                    eveniet vel ea rem quo, quod similique totam facilis qui
-                    odio illo laborum?
+                    Kendimi Front-End alanında geliştiriyorum. Şuan için
+                    profesyonel iş tecrübem yok. Gönüllü projeler ve kendi
+                    yapmış olduğum projler ile bilgilerimi pekiştirip yeni
+                    teknolojiler öğreniyorum ve yeteneklerimi güncel tutmaya
+                    çalışıyorum.
                   </p>
-                  <button onClick={() => console.log("connect")}>
-                    Let's connect <ArrowRightCircle size={25} />
-                  </button>
+                  <a
+                    href="https://www.linkedin.com/in/kblyclkn"
+                    target="-blank"
+                    onClick={() => console.log("connect")}
+                  >
+                    Bağlantı Kur <ArrowRightCircle size={25} />
+                  </a>
                 </div>
               )}
             </TrackVisibility>
